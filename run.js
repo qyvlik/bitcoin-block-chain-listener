@@ -1,8 +1,8 @@
 const BLT = require("./bitcoin-block-chain-listener")
 let bitcoin = new BLT();
 
-bitcoin.connect().catch(function () {
-    console.error('listener connect error');
+bitcoin.connect().catch(function (e) {
+    console.error('listener connect error', e);
 });
 
 bitcoin.events.on('tx', function (tx) {
@@ -11,9 +11,9 @@ bitcoin.events.on('tx', function (tx) {
     //     let txId = txObj.txid;
     //     let vin = txObj.vin;
     //     let vout = txObj.vout;
-    //     console.log('txid', txId, 'vin length:', vin.length, 'vout length:', vout.length);
+    //     console.log('getTx txid', txId, 'vin length:', vin.length, 'vout length:', vout.length);
     // }).catch(function (e) {
-    //     console.error(`get tx txId:${tx.txId} fail : error: ${e}`);
+    //     console.error(`get tx txId:${tx.txid} fail : error: ${e}`);
     // });
     // console.log("typeof tx:", typeof tx);
     // console.log("keys of tx:", Object.keys(tx));
