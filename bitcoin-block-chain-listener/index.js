@@ -32,20 +32,13 @@ module.exports = function () {
         "https://blockexplorer.com/api/"
     ];
 
-    function getApiUrl() {
-        let i = getRandomNum(0, self.insight_apis_servers.length);
-        let apiUrl = self.insight_apis_servers[i];
-        // console.info('getApiUrl index:', i, ", url:", apiUrl);
-        return apiUrl;
-    }
-
     this.connected = false;
     self = this;
     this.events = new EventEmitter();
 
     this.getTx = function (txid) {
         return new Promise(function (Success, Reject) {
-            let apiUrl = getApiUrl();
+            let apiUrl = self.api_url;
             request(apiUrl + 'tx/' + txid, function (error, response, body) {
                 if (!error && response.statusCode == 200) {
                     blockchaindebug('success :)')
@@ -62,7 +55,7 @@ module.exports = function () {
 
     this.getBlock = function (hash) {
         return new Promise(function (Success, Reject) {
-            let apiUrl = getApiUrl();
+            let apiUrl = self.api_url;
             request(apiUrl + 'block/' + hash, function (error, response, body) {
                 if (!error && response.statusCode == 200) {
                     blockchaindebug('success :)')
@@ -86,7 +79,7 @@ module.exports = function () {
 
     this.getTxs4Address = function (address) {
         var result = {};
-        let apiUrl = getApiUrl();
+        let apiUrl = self.api_url;
         blockchaindebug('Getting txs for address', address, 'url:', apiUrl + 'txs/?address=' + address);
         return new Promise(function (Success, Reject) {
             result.address = address;
@@ -134,6 +127,7 @@ module.exports = function () {
             }
 
             self.url = self.insight_servers.shift();
+            self.api_url = self.insight_apis_servers.shift();
 
             if (typeof self.url === 'undefined') {
                 Reject('Cannot reach any bitcoin insight server... no bitcoin transactions are being received.');

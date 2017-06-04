@@ -24,11 +24,6 @@ bitcoin.events.on('tx', function (tx) {
 
 bitcoin.events.on('block', function (block) {
     console.log("block str:", JSON.stringify(block));
-    // console.log("typeof tx:", typeof tx);
-    // console.log("keys of tx:", Object.keys(tx));
-    // console.log('txid:', tx.txid);
-    // console.log('vout:', tx.vout);
-    // console.log('vin:', tx.vin);
 });
 
 console.log('listen run...');

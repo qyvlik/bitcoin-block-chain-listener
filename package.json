@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "blockchain.info": "^2.8.0",
     "debug": "^2.6.1",
     "request": "^2.79.0",
     "socket.io-client": "^1.7.3"
